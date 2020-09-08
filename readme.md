@@ -90,3 +90,56 @@ GET api/bets
 
 Retrieve all made bets.
 ![Get all bets](public/readmePics/get_all_bets.png?raw=true "Get all bets")
+
+```
+POST api/bets
+```
+
+Make a new bet. Note the required parameters.
+![Post bet](public/readmePics/post_new_bet.png?raw=true "Add a bet")
+
+```
+PUT api/bets/:id
+```
+
+Make a new bet. Note the required parameters.
+![Update bet](public/readmePics/update_bet.png?raw=true "Update a bet")
+
+```
+DEL api/bets/:id
+```
+
+Delete a bet to massage your betting record...
+![Delete bet](public/readmePics/delete_bet.png?raw=true "Delete a bet")
+
+# Automatic Betting
+
+I originally planned to have this algo automaticlly bet x minutes before start of match. This would have been achieved by accessing Pinnacle Sports API and betting through that:
+
+```node
+const request = require("request-promise");
+const dotenv = require("dotenv");
+dotenv.config({ path: "./config.env" });
+
+exports.getOdds = function () {
+  console.log("Got the odds");
+  return request({
+    method: "GET",
+    uri:
+      "https://api.pinnacle.com/v1/odds/special?sportId=24&specialId=1122578687&oddsFormat=Decimal",
+    json: true,
+    headers: {
+      Authorization:
+        "Basic " + new Buffer(process.env.PINNACLE_TOKEN).toString("base64"),
+    },
+  });
+};
+```
+
+However they've since cut off my personal access to their API. So next...
+
+# Upcoming features
+
+- Use Twilio to send a reminder to a phone number x minutes before start of event to bet
+- User controller & auth
+- Deploy on Heroku to keep odds updating 'live'

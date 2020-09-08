@@ -10,3 +10,4 @@
 {"message":"\u001b[0mPOST /api/bets \u001b[31m500\u001b[0m 1.906 ms - 60\u001b[0m\n","level":"info"}
 {"message":"\u001b[0mPOST /api/bets \u001b[31m500\u001b[0m 0.906 ms - 60\u001b[0m\n","level":"info"}
 {"message":"\u001b[0mPOST /api/bets \u001b[32m200\u001b[0m 110.567 ms - 203\u001b[0m\n","level":"info"}
+{"message":"\u001b[0mGET /api/bets \u001b[32m200\u001b[0m 487.484 ms - 50486\u001b[0m\n","level":"info"}
