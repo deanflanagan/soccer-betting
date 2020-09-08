@@ -143,3 +143,4 @@ However they've since cut off my personal access to their API. So next...
 - Use Twilio to send a reminder to a phone number x minutes before start of event to bet
 - User controller & auth
 - Deploy on Heroku to keep odds updating 'live'
+- Use ZeroMQ or Pyshell to have the data and a graph piped to a rendered page with your bet history
