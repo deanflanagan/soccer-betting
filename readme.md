@@ -8,28 +8,91 @@ This API generates bets on Major League Soccer for the discerning punter. Bet da
 - Bespoke betting algorithm
 - [Node.js](https://nodejs.org/) server
 - Hosted [Postgres SQL](https://www.postgresql.org/) (using [Sequelize](http://sequelize.org/) ORM)
-- Data exchange using [ZeroMQ](https://zeromq.org/)
+- Version control using [git](https://git-scm.com/)
 
-# Installation & Usage
+# Installation
 
-If you're running Anaconda, you should have everything installed. Then run:
+First, clone this project using:
 
-# Python CLI - Making Bets
+```git
+git clone https //github.com/spankyf/soccer-project
+```
 
-# Major League Soccer Betting API Documentation
+If you're running Anaconda, you should have everything installed. If not, cd into the folder where you cloned the project and run:
 
-This API generates bets on Major League Soccer for the discerning punter. Bet data is accessed from [here](https://www.football-data.co.uk/usa.php). Source data is csv and any data exchanged with the API is through json. Endpoints:
+```python
+pip install requirements.txt
+```
 
-# Features
+For Node.js requirements, run:
 
-- [Python3](https://www.python.org/download/releases/3.0/) CLI
-- Bespoke betting algorithm
-- [Node.js](https://nodejs.org/) server
-- Hosted [Postgres SQL](https://www.postgresql.org/) (using [Sequelize](http://sequelize.org/) ORM)
-- Data exchange using [ZeroMQ](https://zeromq.org/)
+```node
+npm i
+```
 
-# Installation & Usage
+**Note:** You'll probably get this error on firing up the first time:
 
-If you're running Anaconda, you should have everything installed. Then run:
+```
+Error: { emitErrs } was removed in winston@3.0.0.
+```
 
-# Python CLI - Making Bets
+To fix, go to `winston\lib\winston\common.js` and remove (comment out) line 21 that says: ` throw new Error(format('{ %s } was removed in winston@3.0.0.', prop));`
+
+## Python CLI
+
+This CLI retrieves Major League Soccer matches, odds, results and dates. This data stretches back to 2012 and is used to model a betting strategy based on 'bouncebackability': mean reversion of a team to their expected market performance. The assumption here is the the market is more or less a trustworthy barometer to use for evaluating win probabilities.
+
+## CLI Usage
+
+Running `python make_bets.py` as is will provide a bets.json file using defaults yielding a juicy ~9% return since 2012.
+
+You can pass the following arguments to `make_bets.py` to examine various strategies and results:
+
+```python
+python make_bets.py --rolling_errs=int
+```
+
+The rolling_errs integer sets the n last games the teams market underperformance to sum from.
+
+```python
+python make_bets.py --min_games=int
+```
+
+The minimum games from which to start calculating.
+
+```python
+python make_bets.py --cutoff_multi=float
+```
+
+The threshold number for which to decide to bet. You pass a positive number but the number is -ve in the model. A value of -2 represents a cumulative 200% underperformance over the last n rolling_errs (matches).
+
+```python
+python make_bets.py --year=int
+```
+
+Filter by year. Handy if you use this CLI in a program to hit an endpoint to only see this seasons results.
+
+```python
+python make_bets.py --stake=float
+```
+
+Add a representative stake. Nice if you want to see your actual monetary results.
+
+**Note:** to understand full reasoning behind this strategy and decisions used, see the tests folder to find commented scripts.
+
+# API Usage
+
+To use, start the server using:
+
+```node
+npm run start
+```
+
+This API is set up as a RESTful API. After running the above script, go to `http://127.0.0.1/` in Postman and check out these results.
+
+```
+GET api/bets
+```
+
+Retrieve all made bets.
+![Get all bets](public/readmePics/get_all_bets.png?raw=true "Get all bets")
