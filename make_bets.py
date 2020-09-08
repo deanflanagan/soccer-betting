@@ -2,6 +2,7 @@ from collections import defaultdict
 import pandas as pd
 import numpy as np
 import sys
+import datetime
 import argparse
 import os
 import matplotlib.pyplot as plt
@@ -94,7 +95,7 @@ def make_bets(rolling_errs=4, min_games=6,  cutoff_multi=0.5, year='all', stake=
             data[(data['h_nth_game'] >= min_games) & (data['a_nth_game'] >= min_games)])
 
     df = pd.concat(all_seasons)
-
+    print(df.shape)
     cutoff = -cutoff_multi * df.h_rolling_err.std()
 
     last_game_max = 0  # additional parameter to make sure they didn't bounce back last match
@@ -105,12 +106,29 @@ def make_bets(rolling_errs=4, min_games=6,  cutoff_multi=0.5, year='all', stake=
     df.dropna(subset=['home_bet'], thresh=1, inplace=True)
 
     df['home_bet'] = df['home_bet'] * stake
+
     df['unbet'] = np.where(df.hg.isnull(), 1, 0)
     df['odds'] = df['ph']
+
     if year != 'all':
         df = df[df.season == year]
 
-    kept_labels = ['date', 'home', 'away', 'odds', 'home_bet', 'unbet', 'time']
+    new_dates = []
+    new_datetimes = []
+    for x in df[['date', 'time']].values:
+        day, month, year, hour, minute = list(
+            map(int, x[0].split('/'))) + list(map(int, x[1].split(':')))
+        new_datetimes.append(datetime.datetime(
+            year, month, day, hour, minute, second=0).strftime("%m/%d/%Y, %H:%M:%S"))
+        new_dates.append(datetime.date(year, month, day).strftime("%m/%d/%Y"))
+
+    df.drop(['date', 'time'], axis=1, inplace=True)
+
+    df['date'] = new_dates
+    df['kick_off'] = new_datetimes
+
+    kept_labels = ['date', 'home', 'away',
+                   'odds', 'home_bet', 'unbet', 'kick_off']
     df.drop(labels=[x for x in df.columns if x not in kept_labels],
             axis=1, inplace=True)
     df.to_json(path_or_buf='data/bets.json', orient='records')
@@ -131,12 +149,10 @@ if __name__ == "__main__":
                         help='Min games played before strategy started')
     parser.add_argument('--cutoff_multi', type=float,
                         help='Negative stdev to use for calculation. Larger is more conservative, max 2.5')
-    parser.add_argument('--year', type=int,
-                        help='Filter by season integer')
     parser.add_argument('--stake', type=float,
                         help='Your stake in $')
 
-    parser.set_defaults(rolling_errs=6, min_games=6, cutoff_multi=1.5)
+    parser.set_defaults(rolling_errs=6, min_games=6, cutoff_multi=1.5, stake=1)
     args = parser.parse_args()
     make_bets(rolling_errs=args.rolling_errs,
-              min_games=args.min_games, cutoff_multi=args.cutoff_multi)
+              min_games=args.min_games, cutoff_multi=args.cutoff_multi, stake=args.stake)

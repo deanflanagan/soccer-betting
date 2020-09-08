@@ -19,6 +19,7 @@ exports.create = (req, res) => {
     odds: req.body.odds,
     home_bet: -1,
     unbet: true,
+    kick_off: req.body.kick_off,
   };
 
   // Save Tutorial in the database

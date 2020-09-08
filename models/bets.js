@@ -7,21 +7,25 @@ module.exports = (sequelize, Sequelize) => {
     home: {
       type: Sequelize.STRING,
       required: true,
+      allowNull: false,
     },
     away: {
       type: Sequelize.STRING,
       required: true,
+      allowNull: false,
     },
     odds: {
       type: Sequelize.REAL,
       required: true,
+      allowNull: false,
     },
     home_bet: {
       type: Sequelize.REAL,
     },
     kick_off: {
-      type: Sequelize.REAL,
+      type: Sequelize.STRING,
       required: true,
+      allowNull: false,
     },
     unbet: {
       type: Sequelize.BOOLEAN,

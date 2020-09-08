@@ -1,2 +1,12 @@
 {"message":"\u001b[0mGET /api/bets \u001b[32m200\u001b[0m 197.310 ms - 46811\u001b[0m\n","level":"info"}
 {"message":"\u001b[0mGET /api/bets \u001b[32m200\u001b[0m 427.605 ms - 46811\u001b[0m\n","level":"info"}
+{"message":"\u001b[0mPOST /api/bets \u001b[32m200\u001b[0m 450.909 ms - 202\u001b[0m\n","level":"info"}
+{"message":"\u001b[0mGET /api/bets \u001b[32m200\u001b[0m 382.622 ms - 2\u001b[0m\n","level":"info"}
+{"message":"\u001b[0mGET /api/bets \u001b[32m200\u001b[0m 368.929 ms - 2\u001b[0m\n","level":"info"}
+{"message":"\u001b[0mGET / \u001b[33m404\u001b[0m 2.481 ms - 139\u001b[0m\n","level":"info"}
+{"message":"\u001b[0mGET /api/bets \u001b[32m200\u001b[0m 364.279 ms - 2\u001b[0m\n","level":"info"}
+{"message":"\u001b[0mPOST /api/bets \u001b[31m500\u001b[0m 16.914 ms - 60\u001b[0m\n","level":"info"}
+{"message":"\u001b[0mPOST /api/bets \u001b[33m400\u001b[0m 1.817 ms - 1099\u001b[0m\n","level":"info"}
+{"message":"\u001b[0mPOST /api/bets \u001b[31m500\u001b[0m 1.906 ms - 60\u001b[0m\n","level":"info"}
+{"message":"\u001b[0mPOST /api/bets \u001b[31m500\u001b[0m 0.906 ms - 60\u001b[0m\n","level":"info"}
+{"message":"\u001b[0mPOST /api/bets \u001b[32m200\u001b[0m 110.567 ms - 203\u001b[0m\n","level":"info"}

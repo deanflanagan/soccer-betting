@@ -67,12 +67,6 @@ python make_bets.py --cutoff_multi=float
 The threshold number for which to decide to bet. You pass a positive number but the number is -ve in the model. A value of -2 represents a cumulative 200% underperformance over the last n rolling_errs (matches).
 
 ```python
-python make_bets.py --year=int
-```
-
-Filter by year. Handy if you use this CLI in a program to hit an endpoint to only see this seasons results.
-
-```python
 python make_bets.py --stake=float
 ```
 
