@@ -15,7 +15,7 @@ This API generates bets on Major League Soccer for the discerning punter. Bet da
 First, clone this project using:
 
 ```git
-git clone https //github.com/spankyf/soccer-project
+git clone https //github.com/deanflanagan/soccer-project
 ```
 
 If you're running Anaconda, you should have everything installed. If not, cd into the folder where you cloned the project and run:
